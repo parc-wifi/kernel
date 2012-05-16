@@ -213,14 +213,20 @@ ieee80211_add_rx_radiotap_header(struct ieee80211_local *local,
 
 	if (status->flag & RX_FLAG_HT) {
 		rthdr->it_present |= cpu_to_le32(1 << IEEE80211_RADIOTAP_MCS);
-		*pos++ = local->hw.radiotap_mcs_details;
-		*pos = 0;
+		*pos = local->hw.radiotap_mcs_details;
+		if (status->flag & RX_FLAG_NESS1)
+			*pos |= IEEE80211_RADIOTAP_MCS_HAVE_NESS_DATA1;
+		*++pos = 0;
 		if (status->flag & RX_FLAG_SHORT_GI)
 			*pos |= IEEE80211_RADIOTAP_MCS_SGI;
 		if (status->flag & RX_FLAG_40MHZ)
 			*pos |= IEEE80211_RADIOTAP_MCS_BW_40;
 		if (status->flag & RX_FLAG_HT_GF)
 			*pos |= IEEE80211_RADIOTAP_MCS_FMT_GF;
+		*pos |= (status->flag & RX_FLAG_STBC) >>
+				(RX_FLAG_STBC_SHIFT-IEEE80211_RADIOTAP_MCS_STBC_SHIFT);
+		if (status->flag & RX_FLAG_NESS0)
+			*pos |= IEEE80211_RADIOTAP_MCS_NESS_DATA0;
 		pos++;
 		*pos++ = status->rate_idx;
 	}

@@ -689,6 +689,14 @@ ieee80211_tx_info_clear_status(struct ieee80211_tx_info *info)
  *	on this subframe
  * @RX_FLAG_AMPDU_DELIM_CRC_KNOWN: The delimiter CRC field is known (the CRC
  *	is stored in the @ampdu_delimiter_crc field)
+ * @RX_FLAG_STBC: For HT frames only - number of STBC streams
+ *  (from HT-SIG field). If the driver fills this value it should add
+ *  %IEEE80211_RADIOTAP_MCS_HAVE_STBC to hw.radiotap_mcs_details to advertise
+ *  that fact
+ * @RX_FLAG_NESS: For HT frames only - number of extension spatial streams
+ *  (from HT-SIG field). If the driver fills this value it should add
+ *  %IEEE80211_RADIOTAP_MCS_HAVE_NESS to hw.radiotap_mcs_details to advertise
+ *  that fact
  */
 enum mac80211_rx_flags {
 	RX_FLAG_MMIC_ERROR		= BIT(0),
@@ -711,6 +719,12 @@ enum mac80211_rx_flags {
 	RX_FLAG_AMPDU_IS_LAST		= BIT(18),
 	RX_FLAG_AMPDU_DELIM_CRC_ERROR	= BIT(19),
 	RX_FLAG_AMPDU_DELIM_CRC_KNOWN	= BIT(20),
+	RX_FLAG_STBC			= BIT(21) | BIT(22),
+	RX_FLAG_STBC_SHIFT 		= 21,
+	RX_FLAG_NESS			= BIT(23) | BIT(24),
+	RX_FLAG_NESS0			= BIT(23),
+	RX_FLAG_NESS1			= BIT(24),
+	RX_FLAG_NESS_SHIFT 		= 23,
 };
 
 /**
