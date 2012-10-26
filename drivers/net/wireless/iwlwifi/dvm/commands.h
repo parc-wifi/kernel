@@ -309,6 +309,10 @@ enum {
 #define RATE_MCS_SGI_POS 13
 #define RATE_MCS_SGI_MSK 0x2000
 
+/* Bits 17-18: Number of STBC streams */
+#define RATE_MCS_STBC_POS 17
+#define RATE_MCS_STBC_MSK 0x60000
+
 /**
  * rate_n_flags Tx antenna masks
  * 4965 has 2 transmitters

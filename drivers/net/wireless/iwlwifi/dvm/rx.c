@@ -1001,6 +1001,9 @@ static int iwlagn_rx_reply_rx(struct iwl_priv *priv,
 		rx_status.flag |= RX_FLAG_SHORT_GI;
 	if (rate_n_flags & RATE_MCS_GF_MSK)
 		rx_status.flag |= RX_FLAG_HT_GF;
+	rx_status.flag |= (rate_n_flags & RATE_MCS_STBC_MSK) >>
+		(RATE_MCS_STBC_POS - RX_FLAG_STBC_SHIFT);
+	/* no need to copy the Ness field, it will always be 0 */
 
 	iwlagn_pass_packet_to_mac80211(priv, header, len, ampdu_status,
 				    rxb, &rx_status);

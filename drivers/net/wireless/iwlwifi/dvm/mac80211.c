@@ -155,7 +155,9 @@ int iwlagn_mac_setup_register(struct iwl_priv *priv,
 		    IEEE80211_HW_SCAN_WHILE_IDLE;
 
 	hw->offchannel_tx_hw_queue = IWL_AUX_QUEUE;
-	hw->radiotap_mcs_details |= IEEE80211_RADIOTAP_MCS_HAVE_FMT;
+	hw->radiotap_mcs_details |= IEEE80211_RADIOTAP_MCS_HAVE_FMT |
+		    IEEE80211_RADIOTAP_MCS_HAVE_STBC |
+		    IEEE80211_RADIOTAP_MCS_HAVE_NESS;
 
 	/*
 	 * Including the following line will crash some AP's.  This
